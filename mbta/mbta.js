@@ -106,7 +106,7 @@ function renderPolylines()
 
 function renderSchedules()
 {
-    request.open("GET", "https://rocky-taiga-26352.herokuapp.com/redline.json", true);
+    request.open("GET", "https://agile-tundra-55690.herokuapp.com/redline.json", true);
 
     request.onload = function(){
 
