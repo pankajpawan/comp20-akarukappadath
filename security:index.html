@@ -1,0 +1,59 @@
+<!doctype html>
+
+<html lang="en">
+
+<head> 
+	<title>Assignment 4: Security</title>
+	<link href="style.css" rel="stylesheet"/>
+	<meta charset="utf-8"/>
+</head>
+
+<body>
+	<div id = "Header"> Introduction </div>
+	<p> I, Azmina Karukappadath, was hired to take a look at the security of Ming Chow's addition to the 2048 web application. This addition intakes a user input (their username) and stores the top 100 high scores of the game, and also the top ten scores of the individual user. </p>
+	<br/>
+
+	<div id = "Header"> Methodology </div>
+	<p> To test the application, I first read over the source code to understand what kind of issues might arise from the way that the code was written. Then, using principles learned in class, I tried various forms of attacking the page until a few proved successful. 
+	</p>
+	<br/>
+
+	<div id = "Header"> Abstract of Findings </div>
+	<p> Many of the issues that arose came from not validating the user input. When the username is asked for, the user could input various kinds of code that would easily cause the pages to do things that the developer didn't want it to. 
+	</p>
+
+	<div id = "Header"> Issues Found </div>
+	<div id = "Title"> XSS </div>
+		<ul>
+			<li><span class = "Bold"> Issue: </span> Cross-Side Scripting </li>
+			<li><span class = "Bold"> Location: </span> index.js, after user inputs username, and high scores page</li> 
+			<li><span class = "Bold"> Severity: </span> severe - by creating an infinite loop, the users will not be able to use the application </li>
+			<li><span class = "Bold"> Description: </span> When the page asks me to input the username, I can easily input something that is javascript, such as "for(i = 1; i> 0; i++) {alert("hacked!")}" within opening and closing script tags. When the program then tries to display the username later, it instead carries out the javascript command. Thus, the page will keep displaying the alert, and even when the user tells to stop displaying, the page will not load.</li>
+			<li><span class = "Bold"> Proof: </span> <p> <IMG class = "Picture" src = "xss.png" alt = "JS alert that says hacked!"/> </p> </li>
+			<li><span class = "Bold"> Resolution: </span> Add data validation once the user has inputted the username. By removing all "<" and ">" characters, for example, would make this impossible. </li>
+		</ul>
+		<br/>
+
+	<div id = "Title"> HTML Injection </div>
+		<ul>
+			<li><span class = "Bold"> Issue: </span> HTML injection </li>
+			<li><span class = "Bold"> Location: </span> index.js and high scores page</li> 
+			<li><span class = "Bold"> Severity: </span> medium - a malicious user could post unsavory pictures or something, but HTML injections aren't the worst possible thing </li>
+			<li><span class = "Bold"> Description: </span> When the page asks me to input the username, I can easily input something that is HTML, such as a including an absolute URL to a picture. Although the picture will not show up after the user inputs the username, accessing the high scores page will show the picture. </li>
+			<li><span class = "Bold"> Proof: </span> <p> <IMG class = "Picture" src = "html.png" alt = "Picture of ice cream on high scores page"/> </p> </li>
+			<li><span class = "Bold"> Resolution: </span> Add data validation once the user has inputted the username. By removing all "<" and ">" characters, for example, would make this impossible. </li>
+		</ul>
+		<br/>
+
+	<div id = "Title"> CORS </div>
+		<ul>
+			<li><span class = "Bold"> Issue: </span> Cross Origin Resource Sharing </li>
+			<li><span class = "Bold"> Location: </span> index.js </li> 
+			<li><span class = "Bold"> Severity: </span> low - a malicious user could potentially get data from the application, but since there isn't any data that is important (such as credit card info/phone number) this is not a severe problem </li>
+			<li><span class = "Bold"> Description: </span> The application at the moment has CORS enabled. This means that information from the page/application could potentially be leaked </li>
+			<li><span class = "Bold"> Proof: </span> <p> <IMG class = "Picture" src = "cors.png" alt = "Code that involves CORS"/> </p> </li>
+			<li><span class = "Bold"> Resolution: </span> If possible, the developer could specify which other sites can access the application, so that the information from the website is not leaked. This is especially important if the developer wishes to expand the application to include phone number or passwords associated to the usernames </li>
+		</ul>
+</body>
+
+</html>

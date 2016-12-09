@@ -1,0 +1,26 @@
+/*a simple stylesheet*/
+
+body {
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	font-size: 14pt;
+	background-color: #ff9966;
+}
+
+#Header {
+	text-align: center;
+	font-size: 30px;
+}
+
+#Title {
+	font-size: 25px;
+}
+
+IMG.Picture {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	height: auto;
+}
+
+
